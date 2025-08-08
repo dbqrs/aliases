@@ -4,15 +4,14 @@ set -euo pipefail
 # Always work from the home directory
 cd "$HOME" || { echo "Error: Unable to change to home directory"; exit 1; }
 
-# Update apt. Install jq, neofetch and curl
+# Update apt, install jq, neofetch and curl
 sudo apt update
 sudo apt install -y jq neofetch curl
 
-# Backup current .bashrc file
-cp .bashrc .bashrc.bak
-
-# Create log directory ~/.loggy
+# Create ~/.loggy
 mkdir -p "$HOME/.loggy"
+
+cp .bashrc .backrc.backup
 
 # Append the config block to ~/.bashrc (once)
 BASHRC="${HOME}/.bashrc"
@@ -64,4 +63,3 @@ bash -n "$BASHRC" || { echo "Warning: $BASHRC has syntax errors."; exit 1; }
 . "$BASHRC"
 
 echo "Done. Aliases and functions have been applied to your current shell."
-
