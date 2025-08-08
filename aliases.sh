@@ -8,6 +8,9 @@ cd "$HOME" || { echo "Error: Unable to change to home directory"; exit 1; }
 sudo apt update
 sudo apt install -y jq neofetch curl
 
+# Backup current .bashrc file
+cp .bashrc .bashrc.bak
+
 # Create log directory ~/.loggy
 mkdir -p "$HOME/.loggy"
 
@@ -61,3 +64,4 @@ bash -n "$BASHRC" || { echo "Warning: $BASHRC has syntax errors."; exit 1; }
 . "$BASHRC"
 
 echo "Done. Aliases and functions have been applied to your current shell."
+
