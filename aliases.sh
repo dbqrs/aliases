@@ -46,7 +46,6 @@ pub() {
         echo "jq is required but not installed. Install jq and try again."
     fi
 }
-
 EOF
 )"
 #### End append ~/.bashrc
