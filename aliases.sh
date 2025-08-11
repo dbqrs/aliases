@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Always work from the home directory
 cd "$HOME" || { echo "Error: Unable to change to home directory"; exit 1; }
 
-# Create ~/.loggy
+# Update apt, install jq, neofetch and curl
+sudo apt update
+sudo apt install -y jq neofetch curl
+
+# Ensure ~/.loggy exists
 mkdir -p "$HOME/.loggy"
 
-cp .bashrc .backrc.backup
-
-# Append the config block to ~/.bashrc (once)
-BASHRC="${HOME}/.bashrc"
+BASHRC="$HOME/.bashrc"
 touch "$BASHRC"
 
-read -r -d '' BASHRC_BLOCK <<'EOF'
+# Backup the current .bashrc
+cp -f -- "$BASHRC" "$HOME/.bashrc.backup"
+
+# The block we want to append
+BASHRC_BLOCK="$(cat <<'EOF'
 #### Begin append ~/.bashrc
 alias cls='clear'
 alias update='sudo apt update && sudo apt upgrade -y 2>&1 | tee ~/.loggy/"$(date +%F-%S)-upgrade.log"'
@@ -43,7 +47,9 @@ pub() {
 }
 #### End append ~/.bashrc
 EOF
+)"
 
+# Append once
 if ! grep -Fq '#### Begin append ~/.bashrc' "$BASHRC"; then
   printf "\n%s\n" "$BASHRC_BLOCK" >> "$BASHRC"
   echo "Appended aliases/functions to $BASHRC"
@@ -51,15 +57,10 @@ else
   echo "Block already present; skipping append."
 fi
 
-# Quick sanity check for syntax errors
+# Quick syntax check
 bash -n "$BASHRC" || { echo "Warning: $BASHRC has syntax errors."; exit 1; }
 
-# Source the updated ~/.bashrc so changes take effect immediately
-# shellcheck disable=SC1090
-. "$BASHRC"
+# Apply to the *current* shell (avoid .bashrc's non-interactive early return)
+eval "$BASHRC_BLOCK"
 
-# Update apt, install jq, neofetch and curl
-sudo apt update
-sudo apt install -y jq neofetch curl
-
-echo "Done. Aliases and functions have been applied to your current shell."
+echo "Done. New interactive shells will load these automatically; current shell updated via eval."
