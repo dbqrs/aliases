@@ -17,8 +17,9 @@ touch "$BASHRC"
 cp -f -- "$BASHRC" "$HOME/.bashrc.backup"
 
 # The block we want to append
-BASHRC_BLOCK="$(cat <<'EOF'
 #### Begin append ~/.bashrc
+BASHRC_BLOCK="$(cat <<'EOF'
+
 alias cls='clear'
 alias update='sudo apt update && sudo apt upgrade -y 2>&1 | tee ~/.loggy/"$(date +%F-%S)-upgrade.log"'
 alias cleanup='sudo apt autoremove && sudo apt autoclean && sudo apt clean'
@@ -45,9 +46,10 @@ pub() {
         echo "jq is required but not installed. Install jq and try again."
     fi
 }
-#### End append ~/.bashrc
+
 EOF
 )"
+#### End append ~/.bashrc
 
 # Append once
 if ! grep -Fq '#### Begin append ~/.bashrc' "$BASHRC"; then
@@ -63,4 +65,4 @@ bash -n "$BASHRC" || { echo "Warning: $BASHRC has syntax errors."; exit 1; }
 # Apply to the *current* shell (avoid .bashrc's non-interactive early return)
 eval "$BASHRC_BLOCK"
 
-echo "Done. New interactive shells will load these automatically; current shell updated via eval."
+echo "Done."
