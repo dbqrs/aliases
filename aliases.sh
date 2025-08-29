@@ -30,6 +30,8 @@ alias mip="ip -o -4 addr show | awk '{print \$2, \$4}'"
 alias apt='sudo apt'
 alias dpkg='sudo dpkg'
 alias nn='fastfetch'
+alias install='sudo apt'
+alias dpkg='sudo dpkg -i'
 
 # Pubip
 pub() {
