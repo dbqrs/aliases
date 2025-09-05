@@ -3,9 +3,9 @@ set -euo pipefail
 
 cd "$HOME" || { echo "Error: Unable to change to home directory"; exit 1; }
 
-# Update apt, install jq, fastfetch and curl
+# Update apt, install jq and curl
 sudo apt update
-sudo apt install -y jq neofetch curl
+sudo apt install -y jq curl
 
 # Ensure ~/.loggy exists
 mkdir -p "$HOME/.loggy"
@@ -29,7 +29,8 @@ alias pinger='ping -i 1 -s 1472 8.8.8.8 | while read line; do echo "$(date "+%Y-
 alias mip="ip -o -4 addr show | awk '{print \$2, \$4}'"
 alias apt='sudo apt'
 alias dpkg='sudo dpkg'
-alias nn='fastfetch'
+alias nn='neofetch'
+alias ff='fastfetch'
 alias install='sudo apt'
 alias dpkg='sudo dpkg -i'
 
