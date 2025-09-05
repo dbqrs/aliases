@@ -27,12 +27,12 @@ alias wget='wget -c'
 alias sctl='sudo systemctl'
 alias pinger='ping -i 1 -s 1472 8.8.8.8 | while read line; do echo "$(date "+%Y-%m-%d %H:%M:%S") - $line"; done'
 alias mip="ip -o -4 addr show | awk '{print \$2, \$4}'"
-alias apt='sudo apt'
-alias dpkg='sudo dpkg'
+alias install='sudo apt install'
+alias dpkg='sudo dpkg -i'
 alias nn='neofetch'
 alias ff='fastfetch'
-alias install='sudo apt'
-alias dpkg='sudo dpkg -i'
+
+
 
 # Pubip
 pub() {
