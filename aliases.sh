@@ -31,6 +31,8 @@ alias install='sudo apt install'
 alias dpkg='sudo dpkg -i'
 alias nn='neofetch'
 alias ff='fastfetch'
+alias reboot='sudo reboot'
+alias poweroff='sudo poweroff'
 
 # Pubip
 pub() {
