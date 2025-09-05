@@ -32,8 +32,6 @@ alias dpkg='sudo dpkg -i'
 alias nn='neofetch'
 alias ff='fastfetch'
 
-
-
 # Pubip
 pub() {
     local api_url="http://ipinfo.io/json"
